@@ -1,0 +1,1 @@
+self contained test console referencing other projects

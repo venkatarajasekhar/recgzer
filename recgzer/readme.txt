@@ -1,0 +1,1 @@
+the startup project, ui is in here, and any references to other projects happen here
