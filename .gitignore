@@ -13,6 +13,7 @@
 *.sdf
 *.idb
 *.lastbuildstate
+*.opensdf
 
 # User settings   #
 ###################

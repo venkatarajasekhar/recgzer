@@ -12,8 +12,8 @@
 using namespace std;
 
 
-#define ThrowIfNot_SOK(arg)
-#define Throw(arg)
+#define ThrowIfNot_SOK(arg) arg
+#define Throw(arg) arg
 
 namespace recgzer_core {
 
@@ -39,12 +39,12 @@ namespace recgzer_core {
 	{
 	}
 
-	AudioDevice AudioDevice::DefaultAudioDevice() 
+	AudioDevice AudioDevice::DefaultAudioDevice()
 	{
 		CComPtr<IMMDevice> audioDevice;
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
 			
-		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));		
+		HRESULT hr = audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL);
 		ThrowIfNot_SOK(audioDeviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eConsole, &audioDevice));
 			
 		return AudioDevice(audioDevice.Detach());
@@ -88,11 +88,8 @@ namespace recgzer_core {
 	AudioDeviceId AudioDevice::Id()
 	{
 		std::wstring id;
-		std::wstring name;
-
-		/* Get the device id */
-
 		LPWSTR pwszId = NULL;
+
 		HRESULT hr = this->audioDevice->GetId(&pwszId);
 		if (FAILED(hr))
 		{
@@ -102,8 +99,13 @@ namespace recgzer_core {
 
 		id = std::wstring(pwszId);
 		::CoTaskMemFree(pwszId);
+		
+		return AudioDeviceId(id);
+	}
 
-		/* Get the device name */
+	std::wstring AudioDevice::Name()
+	{
+		std::wstring deviceName;
 
 		CComPtr<IPropertyStore> propertyStore;
 
@@ -114,17 +116,18 @@ namespace recgzer_core {
 		PROPERTYKEY propertyKey = PKEY_Device_FriendlyName;
 		PROPVARIANT propertyValue;
 		::PropVariantInit(&propertyValue);
-		hr = propertyStore->GetValue(propertyKey, &propertyValue);
+		HRESULT hr = propertyStore->GetValue(propertyKey, &propertyValue);
 		if (FAILED(hr))
 		{
 			::PropVariantClear(&propertyValue);
 			Throw(hr);
 		}
 		
-		name = wstring(propertyValue.pwszVal);
+		deviceName = wstring(propertyValue.pwszVal);
+
 		ThrowIfNot_SOK(::PropVariantClear(&propertyValue));
-		
-		return AudioDeviceId(id, name);
+
+		return deviceName;
 	}
 
 	float AudioDevice::PeakAudioLevel()

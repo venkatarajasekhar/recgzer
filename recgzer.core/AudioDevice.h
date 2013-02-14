@@ -30,6 +30,7 @@ namespace recgzer_core {
 
 	public:
 		AudioDeviceId Id();
+		std::wstring Name();
 		float PeakAudioLevel();
 
 	private:
