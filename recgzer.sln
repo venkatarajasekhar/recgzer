@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "recgzer.core", "recgzer.core\recgzer.core.vcxproj", "{5CE0BBBC-DA6C-473F-9D37-D65F64960C36}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "recgzer.test.shell", "recgzer.test.shell\recgzer.test.shell\recgzer.test.shell.vcxproj", "{75034538-75AF-47AE-8DC7-BBF6FEF75952}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5CE0BBBC-DA6C-473F-9D37-D65F64960C36}.Debug|Win32.ActiveCfg = Debug|Win32
+		{5CE0BBBC-DA6C-473F-9D37-D65F64960C36}.Debug|Win32.Build.0 = Debug|Win32
+		{5CE0BBBC-DA6C-473F-9D37-D65F64960C36}.Release|Win32.ActiveCfg = Release|Win32
+		{5CE0BBBC-DA6C-473F-9D37-D65F64960C36}.Release|Win32.Build.0 = Release|Win32
+		{75034538-75AF-47AE-8DC7-BBF6FEF75952}.Debug|Win32.ActiveCfg = Debug|Win32
+		{75034538-75AF-47AE-8DC7-BBF6FEF75952}.Debug|Win32.Build.0 = Debug|Win32
+		{75034538-75AF-47AE-8DC7-BBF6FEF75952}.Release|Win32.ActiveCfg = Release|Win32
+		{75034538-75AF-47AE-8DC7-BBF6FEF75952}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

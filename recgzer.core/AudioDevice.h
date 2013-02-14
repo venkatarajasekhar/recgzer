@@ -1,5 +1,7 @@
 #pragma once
 
+#include "AudioDeviceId.h"
+
 #include <vector>
 
 #include <mmdeviceapi.h>
@@ -8,33 +10,31 @@
 
 #include <atlbase.h>
 
-// TODO: remove the smart pointers to 
-
-namespace YoutubeScrobbler {
-
-	class AudioSession;
+namespace recgzer_core {
 
 	class AudioDevice
 	{
 	private:
-		AudioDevice();		
 		AudioDevice(IMMDevice* const);
-		AudioDevice& operator=(const AudioDevice&);	
+		AudioDevice& operator=(const AudioDevice&);
+
 	public:
+		AudioDevice();
 		AudioDevice(const AudioDevice& other);
 		~AudioDevice();
+
 	public:
-		static AudioDevice GetDefaultAudioDevice();
-		static AudioDevice GetAudioDeviceById(const std::wstring&);
-		static std::vector<AudioDevice> GetAudioDevices();	
+		static AudioDevice DefaultAudioDevice();
+		static AudioDevice GetAudioDeviceById(const AudioDeviceId&);
+		static std::vector<AudioDevice> AudioDevices();
+
 	public:
-		std::wstring GetId();
-		std::wstring GetName();
-		float GetPeakAudioLevel();
-		std::vector<AudioSession> GetAudioSessions();
+		AudioDeviceId Id();
+		float PeakAudioLevel();
+
 	private:
-		IMMDevice* audioDevice;
-		IAudioMeterInformation* audioMeterInformation;
-		IAudioSessionManager2* audioSessionManager; 
+		CComPtr<IMMDevice> audioDevice;
+		CComPtr<IAudioMeterInformation> audioMeterInformation;
+		CComPtr<IAudioSessionManager2> audioSessionManager; 
 	};
 }
