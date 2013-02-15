@@ -9,5 +9,7 @@
     <ClInclude Include="AudioDeviceId.h" />
     <ClInclude Include="AudioRecorderType.h" />
     <ClInclude Include="IAudioRecorder.h" />
+    <ClInclude Include="IAudioStream.h" />
+    <ClInclude Include="WaveAudioRecorder.h" />
   </ItemGroup>
 </Project>

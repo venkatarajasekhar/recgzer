@@ -1,3 +1,7 @@
+#include "IAudioStream.h"
+
+#include <memory>
+
 namespace recgzer_core {
 
 	class IAudioRecorder
@@ -5,5 +9,6 @@ namespace recgzer_core {
 	public:
 		virtual void Start() = 0;
 		virtual void Stop() = 0;
+		virtual std::unique_ptr<IAudioStream> Stream() = 0;
 	};
 }

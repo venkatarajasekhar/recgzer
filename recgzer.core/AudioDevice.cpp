@@ -9,17 +9,18 @@
 
 #include <atlbase.h>
 
-using namespace std;
-
-
 #define ThrowIfNot_SOK(arg) arg
 #define Throw(arg) arg
 
 namespace recgzer_core {
 
-	AudioDevice::AudioDevice()
-	{
-	}
+	/***********************************************************************
+	* Object construction
+	***********************************************************************/
+
+	AudioDevice::AudioDevice() {}
+
+	AudioDevice::~AudioDevice() {}
 
 	AudioDevice::AudioDevice(IMMDevice* const audioDevice)
 	{
@@ -34,10 +35,10 @@ namespace recgzer_core {
 		this->audioMeterInformation = other.audioMeterInformation;
 		this->audioSessionManager = other.audioSessionManager;
 	}
-	
-	AudioDevice::~AudioDevice()
-	{
-	}
+
+	/***********************************************************************
+	* Factories
+	***********************************************************************/
 
 	AudioDevice AudioDevice::DefaultAudioDevice()
 	{
@@ -61,9 +62,9 @@ namespace recgzer_core {
 		return AudioDevice(audioDevice.Detach());
 	}
 
-	vector<AudioDevice> AudioDevice::AudioDevices()
+	std::vector<AudioDevice> AudioDevice::AudioDevices()
 	{
-		vector<AudioDevice> devices;
+		std::vector<AudioDevice> devices;
 
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
 		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));
@@ -84,6 +85,10 @@ namespace recgzer_core {
 
 		return devices;
 	}
+
+	/***********************************************************************
+	* Properties
+	***********************************************************************/
 
 	AudioDeviceId AudioDevice::Id() const
 	{
@@ -123,7 +128,7 @@ namespace recgzer_core {
 			Throw(hr);
 		}
 		
-		deviceName = wstring(propertyValue.pwszVal);
+		deviceName = std::wstring(propertyValue.pwszVal);
 
 		ThrowIfNot_SOK(::PropVariantClear(&propertyValue));
 
