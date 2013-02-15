@@ -12,5 +12,7 @@ int main()
 	AudioDeviceId id = device.Id();
 	std::wstring name = device.Name();
 
+	
+
 	return 0;
 }

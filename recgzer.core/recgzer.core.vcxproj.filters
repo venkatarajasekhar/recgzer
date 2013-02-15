@@ -7,5 +7,7 @@
   <ItemGroup>
     <ClInclude Include="AudioDevice.h" />
     <ClInclude Include="AudioDeviceId.h" />
+    <ClInclude Include="AudioRecorderType.h" />
+    <ClInclude Include="IAudioRecorder.h" />
   </ItemGroup>
 </Project>

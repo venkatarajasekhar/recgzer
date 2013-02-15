@@ -66,7 +66,7 @@ namespace recgzer_core {
 		vector<AudioDevice> devices;
 
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
-		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));		
+		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));
 
 		CComPtr<IMMDeviceCollection> audioDeviceCollection;		
 		ThrowIfNot_SOK(audioDeviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, DEVICE_STATE_ACTIVE, &audioDeviceCollection));
@@ -85,7 +85,7 @@ namespace recgzer_core {
 		return devices;
 	}
 
-	AudioDeviceId AudioDevice::Id()
+	AudioDeviceId AudioDevice::Id() const
 	{
 		std::wstring id;
 		LPWSTR pwszId = NULL;
@@ -103,7 +103,7 @@ namespace recgzer_core {
 		return AudioDeviceId(id);
 	}
 
-	std::wstring AudioDevice::Name()
+	std::wstring AudioDevice::Name() const
 	{
 		std::wstring deviceName;
 
@@ -130,7 +130,7 @@ namespace recgzer_core {
 		return deviceName;
 	}
 
-	float AudioDevice::PeakAudioLevel()
+	float AudioDevice::PeakAudioLevel() const
 	{
 		float peakLevel = 0;
 		// The reported value is normalized to the range from 0.0 to 1.0,

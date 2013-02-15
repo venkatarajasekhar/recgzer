@@ -69,6 +69,8 @@
   <ItemGroup>
     <ClInclude Include="AudioDevice.h" />
     <ClInclude Include="AudioDeviceId.h" />
+    <ClInclude Include="AudioRecorderType.h" />
+    <ClInclude Include="IAudioRecorder.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

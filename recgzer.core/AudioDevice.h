@@ -1,8 +1,11 @@
 #pragma once
 
 #include "AudioDeviceId.h"
+#include "AudioRecorderType.h"
+#include "IAudioRecorder.h"
 
 #include <vector>
+#include <memory>
 
 #include <mmdeviceapi.h>
 #include <Endpointvolume.h>
@@ -29,13 +32,14 @@ namespace recgzer_core {
 		static std::vector<AudioDevice> AudioDevices();
 
 	public:
-		AudioDeviceId Id();
-		std::wstring Name();
-		float PeakAudioLevel();
+		AudioDeviceId Id() const;
+		std::wstring Name() const;
+		float PeakAudioLevel() const;
+		std::unique_ptr<IAudioRecorder> Recorder(AudioRecorderType type);
 
 	private:
 		CComPtr<IMMDevice> audioDevice;
 		CComPtr<IAudioMeterInformation> audioMeterInformation;
-		CComPtr<IAudioSessionManager2> audioSessionManager; 
+		CComPtr<IAudioSessionManager2> audioSessionManager;
 	};
 }
