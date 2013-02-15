@@ -8,11 +8,12 @@ int main()
 
 	AudioDevice device = AudioDevice::DefaultAudioDevice();
 
-
 	AudioDeviceId id = device.Id();
-	std::wstring name = device.Name();
+	std::wstring name = device.DisplayName();
 
-	
+	std::unique_ptr<IAudioRecorder> recorder = device.Recorder(AudioRecorderType::Wave);
+
+
 
 	return 0;
 }

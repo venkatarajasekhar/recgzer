@@ -20,19 +20,24 @@ namespace recgzer_core {
 	private:
 		AudioDevice(IMMDevice* const);
 		AudioDevice& operator=(const AudioDevice&); // Not Implemented
+
 	public:
 		AudioDevice();
 		AudioDevice(const AudioDevice& other);
+
 		~AudioDevice();
+
 	public:
 		static AudioDevice DefaultAudioDevice();
 		static AudioDevice GetAudioDeviceById(const AudioDeviceId&);
 		static std::vector<AudioDevice> AudioDevices();
+
 	public:
 		AudioDeviceId Id() const;
-		std::wstring Name() const;
+		std::wstring DisplayName() const;
 		float PeakAudioLevel() const;
 		std::unique_ptr<IAudioRecorder> Recorder(AudioRecorderType) const;
+
 	private:
 		CComPtr<IMMDevice> audioDevice;
 		CComPtr<IAudioMeterInformation> audioMeterInformation;

@@ -1,5 +1,10 @@
 #include "AudioDevice.h"
 
+#include "Exception.h"
+#include "ComException.h"
+#include "IAudioRecorder.h"
+#include "WaveAudioRecorder.h"
+
 #include <vector>
 
 #include <mmdeviceapi.h>
@@ -8,9 +13,6 @@
 #include <Functiondiscoverykeys_devpkey.h>
 
 #include <atlbase.h>
-
-#define ThrowIfNot_SOK(arg) arg
-#define Throw(arg) arg
 
 namespace recgzer_core {
 
@@ -69,7 +71,7 @@ namespace recgzer_core {
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
 		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));
 
-		CComPtr<IMMDeviceCollection> audioDeviceCollection;		
+		CComPtr<IMMDeviceCollection> audioDeviceCollection;
 		ThrowIfNot_SOK(audioDeviceEnumerator->EnumAudioEndpoints(EDataFlow::eRender, DEVICE_STATE_ACTIVE, &audioDeviceCollection));
 
 		UINT count = 0;
@@ -99,7 +101,7 @@ namespace recgzer_core {
 		if (FAILED(hr))
 		{
 			::CoTaskMemFree(pwszId);
-			Throw(hr);
+			throw ComException(hr);
 		}
 
 		id = std::wstring(pwszId);
@@ -108,7 +110,7 @@ namespace recgzer_core {
 		return AudioDeviceId(id);
 	}
 
-	std::wstring AudioDevice::Name() const
+	std::wstring AudioDevice::DisplayName() const
 	{
 		std::wstring deviceName;
 
@@ -125,7 +127,7 @@ namespace recgzer_core {
 		if (FAILED(hr))
 		{
 			::PropVariantClear(&propertyValue);
-			Throw(hr);
+			throw ComException(hr);
 		}
 		
 		deviceName = std::wstring(propertyValue.pwszVal);
@@ -144,5 +146,16 @@ namespace recgzer_core {
 		ThrowIfNot_SOK(this->audioMeterInformation->GetPeakValue(&peakLevel));
 		// Convert the value to a range from 0 to 100 for convenience
 		return peakLevel * 100;
+	}
+
+	std::unique_ptr<IAudioRecorder> AudioDevice::Recorder(AudioRecorderType type) const
+	{
+		switch (type)
+		{
+		case AudioRecorderType::Wave:
+			return std::unique_ptr<IAudioRecorder>(new WaveAudioRecorder(this->audioDevice.p));
+		}
+
+		throw Exception(L"Cannot create recorder. Unsupported recorder type.");
 	}
 }

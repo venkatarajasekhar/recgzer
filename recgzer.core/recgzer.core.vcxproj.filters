@@ -3,6 +3,7 @@
   <ItemGroup>
     <ClCompile Include="AudioDevice.cpp" />
     <ClCompile Include="test.cpp" />
+    <ClCompile Include="WaveAudioRecorder.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AudioDevice.h" />
@@ -11,5 +12,7 @@
     <ClInclude Include="IAudioRecorder.h" />
     <ClInclude Include="IAudioStream.h" />
     <ClInclude Include="WaveAudioRecorder.h" />
+    <ClInclude Include="Exception.h" />
+    <ClInclude Include="ComException.h" />
   </ItemGroup>
 </Project>
