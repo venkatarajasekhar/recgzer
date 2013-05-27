@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <AssemblerOutput>All</AssemblerOutput>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -72,10 +73,14 @@
     <ClInclude Include="AudioDeviceId.h" />
     <ClInclude Include="AudioRecorderType.h" />
     <ClInclude Include="ComException.h" />
+    <ClInclude Include="ComInit.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="IAudioRecorder.h" />
     <ClInclude Include="IAudioStream.h" />
     <ClInclude Include="WaveAudioRecorder.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

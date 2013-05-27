@@ -14,7 +14,7 @@
 #define REFTIMES_PER_MILLISEC  10000
 
 namespace recgzer_core {
-
+	// stream, ....
 	class WaveAudioRecorder final : public IAudioRecorder
 	{
 	friend class AudioDevice;

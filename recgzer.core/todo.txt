@@ -1,0 +1,47 @@
+prototype.. with AcccustId ..
+design of the OM
+EH
+logging
+C shim
+
+
+------------------------------------
+
+exception recorder
+
+recorder api
+ wave recorder
+
+
+diagnostics
+  friendly exceptions
+  logging
+  global exception filter
+  AV filter
+
+exceptions
+  message
+  error code // hr, win32 error code
+  platform messageaggregated exceptions
+  line number // macro
+  formatted message // 
+  call stack
+
+exception base
+win32 exception
+com exception
+
+
+// string comparison utils
+
+
+
+factory                // AudioDevice
+  device               // 
+    client             // Recorder
+      activate...encoding/decoding, audio format
+      checks           //   
+    capture loop       //  
+    data               // ????
+
+

@@ -22,10 +22,10 @@ namespace recgzer_core {
 		AudioDevice& operator=(const AudioDevice&); // Not Implemented
 
 	public:
-		AudioDevice();
+		AudioDevice() {} // Empty
 		AudioDevice(const AudioDevice& other);
 
-		~AudioDevice();
+		~AudioDevice() {} // Empty
 
 	public:
 		static AudioDevice DefaultAudioDevice();
@@ -34,7 +34,7 @@ namespace recgzer_core {
 
 	public:
 		AudioDeviceId Id() const;
-		std::wstring DisplayName() const;
+		std::wstring Name() const;
 		float PeakAudioLevel() const;
 		std::unique_ptr<IAudioRecorder> Recorder(AudioRecorderType) const;
 

@@ -20,10 +20,6 @@ namespace recgzer_core {
 	* Object construction
 	***********************************************************************/
 
-	AudioDevice::AudioDevice() {}
-
-	AudioDevice::~AudioDevice() {}
-
 	AudioDevice::AudioDevice(IMMDevice* const audioDevice)
 	{
 		this->audioDevice = audioDevice;
@@ -46,10 +42,10 @@ namespace recgzer_core {
 	{
 		CComPtr<IMMDevice> audioDevice;
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
-			
+
 		HRESULT hr = audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL);
 		ThrowIfNot_SOK(audioDeviceEnumerator->GetDefaultAudioEndpoint(EDataFlow::eRender, ERole::eConsole, &audioDevice));
-			
+
 		return AudioDevice(audioDevice.Detach());
 	}
 
@@ -57,10 +53,10 @@ namespace recgzer_core {
 	{
 		CComPtr<IMMDevice> audioDevice;
 		CComPtr<IMMDeviceEnumerator> audioDeviceEnumerator;
-			
+
 		ThrowIfNot_SOK(audioDeviceEnumerator.CoCreateInstance(__uuidof(MMDeviceEnumerator), nullptr, CLSCTX_ALL));
 		ThrowIfNot_SOK(audioDeviceEnumerator->GetDevice(id.Id.c_str(), &audioDevice));
-			
+
 		return AudioDevice(audioDevice.Detach());
 	}
 
@@ -110,7 +106,7 @@ namespace recgzer_core {
 		return AudioDeviceId(id);
 	}
 
-	std::wstring AudioDevice::DisplayName() const
+	std::wstring AudioDevice::Name() const
 	{
 		std::wstring deviceName;
 
@@ -129,7 +125,7 @@ namespace recgzer_core {
 			::PropVariantClear(&propertyValue);
 			throw ComException(hr);
 		}
-		
+
 		deviceName = std::wstring(propertyValue.pwszVal);
 
 		ThrowIfNot_SOK(::PropVariantClear(&propertyValue));

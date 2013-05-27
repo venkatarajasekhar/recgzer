@@ -14,5 +14,9 @@
     <ClInclude Include="WaveAudioRecorder.h" />
     <ClInclude Include="Exception.h" />
     <ClInclude Include="ComException.h" />
+    <ClInclude Include="ComInit.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="todo.txt" />
   </ItemGroup>
 </Project>
