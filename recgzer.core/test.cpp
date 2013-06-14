@@ -25,6 +25,8 @@ int main()
 	//                                        .. . wave, mp3, etc.
 	std::unique_ptr<WaveAudioRecorder> recorder = device.Recorder(AudioRecorderType::Pcm16Float);
 
+	recorder->Initialize();
+
 	recorder->Start();
 	recorder->Length();
 	recorder->Stop();
@@ -37,7 +39,7 @@ int main()
 	
 	
 	
-	recorder->Initialize();
+	
 
 	//recorder->i
 

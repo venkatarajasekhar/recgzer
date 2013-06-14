@@ -15,6 +15,7 @@
 *.lastbuildstate
 *.opensdf
 *.unsuccessfulbuild
+*.cod
 
 # User settings   #
 ###################

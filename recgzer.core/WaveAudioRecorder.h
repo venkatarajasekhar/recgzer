@@ -3,6 +3,7 @@
 #include "IAudioRecorder.h"
 
 #include "ComException.h"
+#include "Win32Exception.h"
 #include "Exception.h"
 
 #include <Mmdeviceapi.h>
@@ -13,8 +14,12 @@
 
 #include <atlbase.h>
 
+#include <avrt.h>
+
 #define REFTIMES_PER_SEC 10000000
 #define REFTIMES_PER_MILLISEC  10000
+
+#define TASK_NAME L"Pro Audio"
 
 namespace recgzer_core {
 
@@ -45,6 +50,7 @@ namespace recgzer_core {
 	public:
 		void Initialize()
 		{
+#if 1 // format handling
 			WAVEFORMATEX* format;
 			ThrowIfNot_SOK(audioClient->GetMixFormat(&format));
 
@@ -81,16 +87,53 @@ namespace recgzer_core {
 			ThrowIfNot_SOK(audioClient->IsFormatSupported(AUDCLNT_SHAREMODE_SHARED, format, &supportedFormat));
 			
 			// TODO: check against the format we asked for
-
+#endif
+			
 			REFERENCE_TIME hnsDefaultDevicePeriod;
 			ThrowIfNot_SOK(audioClient->GetDevicePeriod(&hnsDefaultDevicePeriod, NULL));
 			LONG sleepms = (LONG)hnsDefaultDevicePeriod / 2 / (10 * 1000);
 
-			ThrowIfNot_SOK(audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_LOOPBACK, 0, 0, format, NULL)); 
+			ThrowIfNot_SOK(audioClient->Initialize(AUDCLNT_SHAREMODE_SHARED, AUDCLNT_STREAMFLAGS_EVENTCALLBACK, 0, 0, format, NULL)); 
 
-			ThrowIfNot_SOK(audioClient->GetService(__uuidof(IAudioCaptureClient), (void**)&this->audioCaptureClient));
-
+			HANDLE signal = ThrowIfFailed(::CreateEventA(NULL, FALSE, FALSE, NULL));
 			
+			
+
+			//if () {}
+
+
+			ThrowIfNot_SOK(audioClient->SetEventHandle(signal));
+						
+			ThrowIfNot_SOK(audioClient->GetService(__uuidof(IAudioRenderClient), (void**)&this->audioRenderClient));
+			
+			/*
+			// To reduce latency, load the first buffer with data
+			// from the audio source before starting the stream.
+			hr = pRenderClient->GetBuffer(bufferFrameCount, &pData);
+			EXIT_ON_ERROR(hr)
+
+			hr = pMySource->LoadData(bufferFrameCount, pData, &flags);
+			EXIT_ON_ERROR(hr)
+
+			hr = pRenderClient->ReleaseBuffer(bufferFrameCount, flags);
+			EXIT_ON_ERROR(hr)
+			*/
+
+			HANDLE hTask;
+			DWORD taskIndex = 0;
+			hTask = AvSetMmThreadCharacteristicsW(L"Pro Audio", &taskIndex);
+			/*if (hTask == NULL)
+			{
+				hr = E_FAIL;
+				EXIT_ON_ERROR(hr)
+			}*/
+
+			DWORD waitState = ::WaitForSingleObject(signal, 1000);
+
+			/*
+			// Wait for the last buffer to play before stopping.
+			Sleep((DWORD)(hnsRequestedDuration/REFTIMES_PER_MILLISEC));
+			*/
 		}
 
 	private:
@@ -101,5 +144,6 @@ namespace recgzer_core {
 	private:
 		CComPtr<IAudioClient> audioClient;
 		CComPtr<IAudioCaptureClient> audioCaptureClient;
+		CComPtr<IAudioRenderClient> audioRenderClient;
 	};
 }

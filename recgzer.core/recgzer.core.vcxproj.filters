@@ -12,11 +12,23 @@
     <ClInclude Include="IAudioRecorder.h" />
     <ClInclude Include="IAudioStream.h" />
     <ClInclude Include="WaveAudioRecorder.h" />
-    <ClInclude Include="Exception.h" />
-    <ClInclude Include="ComException.h" />
     <ClInclude Include="ComInit.h" />
+    <ClInclude Include="ComException.h">
+      <Filter>EH</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32Exception.h">
+      <Filter>EH</Filter>
+    </ClInclude>
+    <ClInclude Include="Exception.h">
+      <Filter>EH</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="EH">
+      <UniqueIdentifier>{d274014d-a9cb-40f2-88c4-0f16e97a694d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
