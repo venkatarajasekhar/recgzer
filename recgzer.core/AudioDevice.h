@@ -4,6 +4,8 @@
 #include "AudioRecorderType.h"
 #include "IAudioRecorder.h"
 
+/**/#include "WaveAudioRecorder.h"
+
 #include <vector>
 #include <memory>
 
@@ -36,7 +38,7 @@ namespace recgzer_core {
 		AudioDeviceId Id() const;
 		std::wstring Name() const;
 		float PeakAudioLevel() const;
-		std::unique_ptr<IAudioRecorder> Recorder(AudioRecorderType) const;
+		std::unique_ptr<WaveAudioRecorder> Recorder(AudioRecorderType) const;
 
 	private:
 		CComPtr<IMMDevice> audioDevice;

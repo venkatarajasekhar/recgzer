@@ -4,6 +4,16 @@ EH
 logging
 C shim
 
+---
+
+recorder<stream> // encoding, 
+pcm16float
+
+stream
+  buffered
+  file stream
+
+// browse windows sources for alternatives to Sleep(deviceMs)
 
 ------------------------------------
 
@@ -20,6 +30,7 @@ diagnostics
   AV filter
 
 exceptions
+  optimization, Exception and ComException should take a const wchar*
   message
   error code // hr, win32 error code
   platform messageaggregated exceptions

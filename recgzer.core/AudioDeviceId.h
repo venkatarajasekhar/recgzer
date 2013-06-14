@@ -7,20 +7,11 @@ namespace recgzer_core {
 	struct AudioDeviceId
 	{
 	public:
-		AudioDeviceId(std::wstring id) : Id(id)
-		{
-		}
+		AudioDeviceId(std::wstring id) : Id(id) {}
 
 	public:
-		bool operator == (const AudioDeviceId& id) const 
-		{
-			return this->EqualsTo(id);
-		}
-
-		bool operator != (const AudioDeviceId& id) const
-		{
-			return this->EqualsTo(id);
-		}
+		bool operator == (const AudioDeviceId& id) const { return this->EqualsTo(id); }
+		bool operator != (const AudioDeviceId& id) const { return this->EqualsTo(id); }
 
 	private:
 		bool EqualsTo(const AudioDeviceId& id) const

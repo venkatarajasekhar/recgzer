@@ -9,8 +9,8 @@ namespace recgzer_core {
 		device->Activate(__uuidof(IAudioClient), CLSCTX_ALL, NULL, (void**)&this->audioClient);
 	}
 
-	void WaveAudioRecorder::Start() {}
-	void WaveAudioRecorder::Stop() {}
+	//void WaveAudioRecorder::Start() {}
+	//void WaveAudioRecorder::Stop() {}
 
 	int WaveAudioRecorder::Length() { return 0; }
 	std::unique_ptr<IAudioStream> WaveAudioRecorder::Stream() { throw; }

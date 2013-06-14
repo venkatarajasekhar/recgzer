@@ -141,15 +141,16 @@ namespace recgzer_core {
 		// the reported value will be 8914/32768 = 0.272
 		ThrowIfNot_SOK(this->audioMeterInformation->GetPeakValue(&peakLevel));
 		// Convert the value to a range from 0 to 100 for convenience
-		return peakLevel * 100;
+		return peakLevel * 100.0f;
 	}
 
-	std::unique_ptr<IAudioRecorder> AudioDevice::Recorder(AudioRecorderType type) const
+	//std::unique_ptr<IAudioRecorder> AudioDevice::Recorder(AudioRecorderType type) const
+	std::unique_ptr<WaveAudioRecorder> AudioDevice::Recorder(AudioRecorderType type) const
 	{
 		switch (type)
 		{
-		case AudioRecorderType::Wave:
-			return std::unique_ptr<IAudioRecorder>(new WaveAudioRecorder(this->audioDevice.p));
+		case AudioRecorderType::Pcm16Float:
+			return std::unique_ptr<WaveAudioRecorder>(new WaveAudioRecorder(this->audioDevice.p));
 		}
 
 		throw Exception(L"Cannot create recorder. Unsupported recorder type.");
