@@ -12,6 +12,9 @@ namespace YoutubeScrobbler {
 	friend class AudioDevice;
 
 	private:
+	        
+		AudioSessionState state;
+		unsigned long ownerProcessId;
 		AudioSession();
 		AudioSession(IAudioSessionControl2* sessionControl2);
 
@@ -24,15 +27,11 @@ namespace YoutubeScrobbler {
 			return *this;
 		}
 		~AudioSession() {}
-
-	public:
 		// Gets the state of this audio session.
 		AudioSessionState GetState() { return this->state; }
 		// Gets a ProcessInfo object which incapsulates information about the process who owns the audio session.
 		ProcessInfo GetOwnerProcess();
 
-	private:
-		AudioSessionState state;
-		unsigned long ownerProcessId;
+	
 	};
 }
